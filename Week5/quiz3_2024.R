@@ -66,7 +66,6 @@ dna_to_rna <- function(dna_sequence) {
   return(rna_sequence)
 }
 
-
 # Question 2: Calculate Hamming Distance Between Two Sequences
 # Write a function that calculates the Hamming distance (number of mismatches) 
 # between two DNA sequences of the same length. 
@@ -75,9 +74,7 @@ dna_to_rna <- function(dna_sequence) {
 # return the final count
 
 cal_hamming_dist <- function (seq1, seq2) {
-  # initialize the counter
-  count <- 0
-  
+
   # convert the input seq to upper case
   seq1 <- toupper(seq1)
   seq2 <- toupper(seq2)
@@ -89,18 +86,12 @@ cal_hamming_dist <- function (seq1, seq2) {
   # check to make sure lengths of the two sequences are the same, otherwise stop
   if (length(seq1)!=length(seq2)){
     stop("Lengths of two sequences must be the same")
+  } else {
+    count <- sum(seq1 != seq2)
   }
   
-  for (i in 1:length(seq1)) {
-    # compare each in the sequence to each other
-    if (seq1[i]!=seq2[i]) {
-      # if they are different, then increment the counter,
-      count <- count + 1 
-    } 
-  }
   return(count)
 }
-
 
 # Question 3: Generate allele frequency change under selection pressure
 # Write a function that simulates allele frequency changes under selection pressure. 
@@ -116,6 +107,7 @@ cal_hamming_dist <- function (seq1, seq2) {
 # is the frequency of allele B and b at that generation
 
 simulate_selection <- function(p_B, fit_B, fit_b, total_generations){
+  
   # initialize a matrix to put the data in
   dat <- matrix(data=NA, nrow=total_generations+1, ncol=3)
   dat[1,] <- c(0, p_B, 1-p_B)
@@ -131,6 +123,8 @@ simulate_selection <- function(p_B, fit_B, fit_b, total_generations){
   colNames <- c("Generation", "p_B", 'p_b') # name the columns
   df <- as.data.frame(dat)
   colnames(df) <- colNames
+  
+  # return the dataframe as the output of the function 
   return(df)
 }
 
